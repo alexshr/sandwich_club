@@ -32,11 +32,14 @@ public class JsonUtils {
 
             sandwich.setPlaceOfOrigin(root.optString("placeOfOrigin"));
             sandwich.setDescription(root.optString("description"));
-            sandwich.setImage(root.optString("image"));
+
+            String img = root.optString("image");
+            if (img.isEmpty()) Log.e(TAG, "no 'image' property in json:" + json);
+            else sandwich.setImage(root.optString("image"));
 
             JSONArray jaIngredients = root.optJSONArray("ingredients");
             if (jaIngredients == null) Log.e(TAG, "no 'ingredients' array in json:" + json);
-            sandwich.setIngredients(jsonArrayToList(jaIngredients));
+            else sandwich.setIngredients(jsonArrayToList(jaIngredients));
 
             return sandwich;
 
